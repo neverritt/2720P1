@@ -51,14 +51,25 @@ void append(T data){
 /**
 * Removes all elements from this list.
 */
-void clear(void);
+void clear(void) {
+	// start at head
+	// data is null
+	// go to next
+	// while temp node is not null
+}
 
 /**
 * Returns the item at the given index location.
 *
 * @param i the index of the item to return
 */
-T get(int i) const;
+T get(int i) const {
+	Node<T> * newNode = nullptr;
+	// could start at head and count
+	// could have int that increases when node is added beforehand
+	// for i times, go to next node?
+	// return temp data	
+}
 
 /**
 * Adds an item to the list at the specified index location.
@@ -73,7 +84,11 @@ void insert(int i, T data);
 *
 * @param data the item to prepend
 */
-void prepend(T data);
+void prepend(T data){
+	// when node is null after going next?
+
+
+}
 
 /**
 * Sets the value of element at the given index.
@@ -86,13 +101,16 @@ void set(int i, T data);
 /**
 * Returns the number of elements in this list.
 */
-const int size() const;
+const int size() const {
+	// return instance variable size
+}
 
 /**
 * Returns whether or not this linked list is empty. */
 const bool empty() const {
-return size() == 0;
+	return size() == 0;
 } // empty
+
 }; // LinkedList
 #endif /** LINKED_LIST_H */
 
