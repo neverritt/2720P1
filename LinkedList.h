@@ -1,5 +1,7 @@
 #ifndef LINKED_LIST_H
 #define LINKED_LIST_H
+#include <iostream>
+using namespace std;
 
 // forward declation of LinkedList
 template<typename T>
@@ -33,7 +35,8 @@ template<typename T>
 class LinkedList {
 public:
 	Node<T> * head = nullptr; // pointer to head node
-
+	Node<T> * tail = nullptr;
+	int size = 0;
 /**
 * Adds an item to the end of this list.
 *
@@ -44,18 +47,24 @@ void append(T data){
 	// could use malloc
 	Node<T> newNode;
 	newNode.data = data;
-	newNode.prev = NULL;
-	newNode.next = NULL;	
+	newNode.prev = tail; //tail
+	tail = newNode;
+	newNode.next = NULL;
+	size++;
 }
 
 /**
 * Removes all elements from this list.
 */
 void clear(void) {
+	size = 0;
 	// start at head
-	// data is null
-	// go to next
-	// while temp node is not null
+	Node<T> temp = head;
+	while(temp != NULL){
+		// data is null
+		temp.prev = NULL;
+		temp = temp.next;
+	}
 }
 
 /**
@@ -64,7 +73,16 @@ void clear(void) {
 * @param i the index of the item to return
 */
 T get(int i) const {
-	Node<T> * newNode = nullptr;
+	Node<T> temp = head;
+	if (i >= size){
+		cout << "Index is outside of range." << endl;
+		return;
+	}
+	else
+	for(int j = 0; j<i; j++){
+		temp = temp.next;	
+	}
+	return temp.data;
 	// could start at head and count
 	// could have int that increases when node is added beforehand
 	// for i times, go to next node?
@@ -77,7 +95,28 @@ T get(int i) const {
 * @param i the index where to insert the item
 * @param data the item to insert
 */
-void insert(int i, T data);
+void insert(int i, T data){
+	if (i >= size){
+		cout << "Index is outside of range." << endl;
+	}
+	else{
+		Node<T> newNode;
+		newNode.data = data;
+		newNode.next = head;
+		
+		// for loop gets newNode to point at the node that will be after it post-insertion
+		for(int j = 0; j<i; j++){
+			newNode.next = newNode.next.next;
+		}
+		// gets newNode's prev ptr to point at the node that will be before it post-insertion
+		newNode.prev = newNode.next.prev;
+
+		// gets the nodes before and after newNode to point to it instead of each other
+		newNode.next.prev = newNode;
+		newNode.prev.next = newNode;
+		
+	}
+}
 
 /**
 * Adds an item to the end of this list.
@@ -86,8 +125,13 @@ void insert(int i, T data);
 */
 void prepend(T data){
 	// when node is null after going next?
-
-
+	// create new Node with each variable
+	// could use malloc
+	Node<T> newNode;
+	newNode.data = data;
+	newNode.next = head; // nodes next is set to head
+	newNode.prev = NULL;
+	head = newNode;
 }
 
 /**
@@ -96,13 +140,24 @@ void prepend(T data){
 * @param i the index of the element to set
 * @param data the value to set
 */
-void set(int i, T data);
+void set(int i, T data){
+	Node<T> temp = head;
+	if (i >= size){
+		cout << "Index is outside of range." << endl;
+	}
+	else {
+		for(int j = 0; j<i; j++){
+			temp = head.next;	
+		}
+		temp.data = data;
+	}
+}
 
 /**
 * Returns the number of elements in this list.
 */
 const int size() const {
-	// return instance variable size
+	return size;
 }
 
 /**
