@@ -36,12 +36,15 @@ ArrayStack(const ArrayStack<T> & other) {
 // Pushes an item onto the top of this stack
 void push(T data){
 	top = top + 1;
+	// allocate memory for a new array
 	if ((top+1) == count){
 		count = count + 1;
 		T * temp = new T[count];
+		// copy elements
 		for(int i = 0; i < count; i++){
 			temp[i] = array[i];
 		}
+		// delete the old array, replace with temp
 		delete [] array;
 		array = temp;
 	}
