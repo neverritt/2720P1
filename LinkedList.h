@@ -31,8 +31,8 @@ class Node {
 template<typename T>
 class LinkedList {
 public:
-	Node<T> * head = NULL; // pointer to head node
-	Node<T> * tail = NULL;
+	Node<T> * head = nullptr; // pointer to head node
+	Node<T> * tail = nullptr;
 	int length = 0;
 /**
 * Adds an item to the end of this list.
@@ -41,14 +41,14 @@ public:
 */
 void append(T data){
 	// create new Node with each variable
-	/*Node<T> newNode;
+	Node<T> newNode;
 	newNode.data = data;
 	newNode.prev = tail;
 	tail = &newNode;
 	newNode.next = nullptr;
-	length++;*/
+	length++;
 	
-	insert( size(), data);
+	//insert( size(), data);
 }
 
 /**
@@ -78,7 +78,8 @@ void clear(void) {
 * @param i the index of the item to return
 */
 T get(int i) const {
-	Node<T> * temp = head;
+	Node<T> * temp = new Node<T>();
+	temp = head;
 	if (i >= length || i < 0){
 		cout << "Index is outside of range." << endl;
 		exit (EXIT_FAILURE);
@@ -100,7 +101,7 @@ T get(int i) const {
 * @param data the item to insert
 */
 void insert(int i, T data){
-	if (i > length){
+	if ( i > length || i < 0 ){
 		cout << "Index is outside of range." << endl;
 		exit ( EXIT_FAILURE );
 	}
@@ -120,7 +121,7 @@ void insert(int i, T data){
 		}
 		
 		newNode.next = sucessorPtr;		// sets newNode.next to it's successor
-		newNode.prev = predecessorPtr;		// successor of newNode's prev is still set to what will be /
+		newNode.prev = predecessorPtr;		// successor of newNode's prev is still set to what will be
 		
 		// gets the nodes before and after newNode to point to it instead of each other
 		predecessorPtr->next = &newNode;
@@ -140,14 +141,14 @@ void insert(int i, T data){
 * @param data the item to prepend
 */
 void prepend(T data){
-	/*Node<T> newNode;
+	Node<T> newNode;
 	newNode.data = data;
 	newNode.next = head; // nodes next is set to head
 	newNode.prev = NULL;
 	head = &newNode;
-	length++;*/
+	length++;
 
-	insert( 0, data );
+	//insert( 0, data );
 }
 
 /**
