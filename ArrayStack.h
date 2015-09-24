@@ -1,6 +1,8 @@
 #ifndef ARRAY_STACK_H
 #define ARRAY_STACK_H
 #include "Stack.h"
+#include <iostream>
+using namespace std;
 
 /**
 * An array-based stack implementation.
@@ -11,15 +13,17 @@ class ArrayStack : public Stack<T> {
 
 // instance/state variables
 public:
-int count = 1;
-T * array = new T[1];
+int maxSize = 10;
+int count = 0;
 int top = -1;
+T * array = new T[maxSize];
 
 // Default Constructor
 ArrayStack(void) = default;
 
 // Copy Constructor
 ArrayStack(const ArrayStack<T> & other) {
+	//ArrayStack() copy = new ArrayStack();
 	// declare new dynamic array
 	//T * newArray = new T[count];
 	// copy data from array to newArray
@@ -29,17 +33,19 @@ ArrayStack(const ArrayStack<T> & other) {
 } // ArrayStack
   
 // Destructor
-  ~ArrayStack(void) {
+~ArrayStack(void) {
 	delete [] array;
 } // ~ArrayStack
 
 // Pushes an item onto the top of this stack
 void push(T data){
-	top = top + 1;
+	top++;
+	count++;
 	// allocate memory for a new array
-	if ((top+1) == count){
-		count = count + 1;
-		T * temp = new T[count];
+	if (count > maxSize){
+		//count = count + 1;
+		// new array increases size by 1
+		T * temp = new T[maxSize+(count-maxSize)];
 		// copy elements
 		for(int i = 0; i < count; i++){
 			temp[i] = array[i];
@@ -51,6 +57,19 @@ void push(T data){
 	array[top] = data;
 }
 
+// Removes the item at the top of this stack and returns that item
+T pop(void){
+	T popped;
+	if (count!=0){
+		popped = array[top];
+		//array[top] = nullptr;
+		count--;
+		top--;
+		//return popped;
+	}
+	return popped;
+}
+
 // Returns the item at the top of this stack
 T peek(void) const {
 	return array[top];	
@@ -58,7 +77,7 @@ T peek(void) const {
 
 // Returns the number of elements in this stack
 const int size(void) const {
-	return count-1;
+	return count;
 }
 
 // Returns whether or not this stack is empty

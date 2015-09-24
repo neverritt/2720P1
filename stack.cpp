@@ -7,11 +7,30 @@ using std::cout;
 using std::endl;
 using std::string;
 int main(int argc, const char * argv[]) {
+
 cout << "Testing Stack Implementations..." << endl;
-// Stack<int> * s1 = new ArrayStack<int> {};
+Stack<int> * s1 = new ArrayStack<int> {};
 // Stack<int> * s2 = new LinkedStack<int> {};
 // test!
-// delete s1;
+s1->push(1);
+s1->push(2);
+s1->push(3);
+s1->push(4);
+s1->push(5);
+s1->push(6);
+s1->push(7);
+s1->push(8);
+s1->push(9);
+s1->push(10);
+s1->push(11);
+s1->push(12);
+cout << "Popped " << s1->pop() << endl;
+
+cout << "Peeking " << s1->peek() << endl;
+
+cout << "size is " << s1->size() << endl;
+delete s1;
+
 // delete s2;
 
 // testing linked list implementation
