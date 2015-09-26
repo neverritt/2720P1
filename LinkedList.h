@@ -9,21 +9,15 @@ template<typename T>
 class LinkedList;
 
 /**
- * A doubly-linked list constructor
- */
-
-
-/**
 * Represents a node in a doubly-linked list.
 */
 template<typename T>
 class Node {
 	friend class LinkedList<T>;
 	T data;
-	Node<T> * prev = NULL;
-	Node<T> * next = NULL;
-};
-
+	Node<T> * prev = nullptr;
+	Node<T> * next = nullptr;
+}; // Node
 
 /**
 * A doubly-linked list data structure.
@@ -31,8 +25,8 @@ class Node {
 template<typename T>
 class LinkedList {
 public:
-	Node<T> * head = nullptr; // pointer to head node
-	Node<T> * tail = nullptr;
+	Node<T> * head = nullptr; // pointer to 1st node
+	Node<T> * tail = nullptr; // pointer to last node
 	int length = 0;
 /**
 * Adds an item to the end of this list.
@@ -40,12 +34,20 @@ public:
 * @param data the item to append
 */
 void append(T data){
-	// create new Node with each variable
-	Node<T> newNode;
-	newNode.data = data;
-	newNode.prev = tail;
-	tail = &newNode;
-	newNode.next = nullptr;
+	// create new Node
+	Node<T>* newNode = new Node<T>();
+	newNode->data = data;
+
+	// if first node, tail = head
+	if (tail == nullptr){
+		head = newNode;
+		tail = head;
+	}
+	// if not first node, update tail
+	else {
+		tail->next = newNode;
+		tail = tail->next;			
+	}
 	length++;
 	
 	//insert( size(), data);
@@ -78,7 +80,7 @@ void clear(void) {
 * @param i the index of the item to return
 */
 T get(int i) const {
-	Node<T> * temp = new Node<T>();
+	Node<T> * temp;
 	temp = head;
 	if (i >= length || i < 0){
 		cout << "Index is outside of range." << endl;
@@ -105,33 +107,45 @@ void insert(int i, T data){
 		cout << "Index is outside of range." << endl;
 		exit ( EXIT_FAILURE );
 	}
+
+	if (i == 0){
+		prepend(data);
+	}
+	else if(i==length){
+		append(data);
+	}
 	else{
-		Node<T> newNode;
-		Node<T> * sucessorPtr;
-		Node<T> * predecessorPtr;
-		newNode.data = data;
-		sucessorPtr = head;
+		//Node<T> * newNode = Node<T>();
+		//Node<T> * sucessorPtr;
+		//Node<T> * predecessorPtr;
+		//newNode->data = data;
+		//sucessorPtr = head;
+		Node<T> * traverse = head;
 		
 		// for loop gets a ptr to the successor of newNode post-insertion
-		for( int j = 0; j < i; j++ ) {
-			if( j == i-1 ) {
-				predecessorPtr = sucessorPtr;
-			}
-			sucessorPtr = sucessorPtr->next;
+		for( int j = 1; j < i; j++ ) {
+			traverse = traverse->next;
+			//if( j == i-1 ) {
+			//	predecessorPtr = sucessorPtr;
+			//}
+			//sucessorPtr = sucessorPtr->next;
 		}
-		
-		newNode.next = sucessorPtr;		// sets newNode.next to it's successor
-		newNode.prev = predecessorPtr;		// successor of newNode's prev is still set to what will be
+		Node<T> * temp = traverse->next;
+		traverse->next = new Node<T>;
+		(traverse->next)->next = temp;
+		(traverse->next)->data = data;
+		//newNode.next = sucessorPtr;		// sets newNode.next to it's successor
+		//newNode.prev = predecessorPtr;		// successor of newNode's prev is still set to what will be
 		
 		// gets the nodes before and after newNode to point to it instead of each other
-		predecessorPtr->next = &newNode;
-		sucessorPtr->prev = &newNode;
+		//predecessorPtr->next = &newNode;
+		//sucessorPtr->prev = &newNode;
 		length++;
 
-		if( i == 0 )
-			head = &newNode;
-		else if ( i == length - 1 )
-			tail = &newNode;
+		//if( i == 0 )
+		//	head = &newNode;
+		//else if ( i == length - 1 )
+		//	tail = &newNode;
 	}
 }
 
@@ -141,13 +155,15 @@ void insert(int i, T data){
 * @param data the item to prepend
 */
 void prepend(T data){
-	Node<T> newNode;
-	newNode.data = data;
-	newNode.next = head; // nodes next is set to head
-	newNode.prev = NULL;
-	head = &newNode;
+	Node<T> * newNode = new Node<T>();
+	newNode->data = data;
+	newNode->next = head; // nodes next is set to head
+	head = newNode;
 	length++;
 
+	// If first Node, tail = head
+	if(tail == nullptr)
+		tail = head;
 	//insert( 0, data );
 }
 
@@ -164,6 +180,7 @@ void set(int i, T data){
 	}
 	else {
 		Node<T> * temp;
+		temp = head;
 		for(int j = 0; j < i; j++){
 			temp = temp->next;	
 		}
