@@ -23,18 +23,33 @@ ArrayStack(void) = default;
 
 // Copy Constructor
 ArrayStack(const ArrayStack<T> & other) {
-	//ArrayStack() copy = new ArrayStack();
-	// declare new dynamic array
-	//T * newArray = new T[count];
-	// copy data from array to newArray
-	//for (int i = 0; i < count; i++){
-	//	newArray[i] = array[i];
-	//}
+	//top = other.top;
+	cout << "Copy called" << endl;
+	//delete [] array;
+	count = 0;
+	maxSize = 10;
+	top = -1;
+	// copying the array
+	//T * temp = new T[maxSize];
+	for(int i = 0;i < other.count; i++){
+		this->push(other.array[i]);
+		cout << "Pushing" << endl;
+		//temp[i] = other.array[i];
+	}
+	cout << "Done Pushing" << endl;
+	//delete [] array; //emptying array just in case
+	//cout << "Delete worked" << endl;
+	//array = temp;
+	//cout << "set array to temp" << endl;
+	//delete [] temp;
 } // ArrayStack
   
 // Destructor
 ~ArrayStack(void) {
 	delete [] array;
+	count = 0;
+	top = -1;
+	maxSize = 10;
 } // ~ArrayStack
 
 // Pushes an item onto the top of this stack
@@ -45,7 +60,8 @@ void push(T data){
 	if (count > maxSize){
 		//count = count + 1;
 		// new array increases size by 1
-		T * temp = new T[maxSize+(count-maxSize)];
+		maxSize = maxSize + (count-maxSize);
+		T * temp = new T[maxSize];
 		// copy elements
 		for(int i = 0; i < count; i++){
 			temp[i] = array[i];

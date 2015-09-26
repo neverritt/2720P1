@@ -9,8 +9,8 @@ using std::string;
 int main(int argc, const char * argv[]) {
 
 cout << "Testing Stack Implementations..." << endl;
-Stack<int> * s1 = new ArrayStack<int> {};
-// Stack<int> * s2 = new LinkedStack<int> {};
+ArrayStack<int> * s1 = new ArrayStack<int> {};
+//Stack<int> * s2 = new ArrayStack<int> {};
 // test!
 s1->push(1);
 s1->push(2);
@@ -29,7 +29,15 @@ cout << "Popped " << s1->pop() << endl;
 cout << "Peeking " << s1->peek() << endl;
 
 cout << "size is " << s1->size() << endl;
+
+ArrayStack<int> s2(*s1);  // = *s1
+
+//s2 = s1;
+
+cout << "Peeking " << s2.peek() <<endl;
+cout << "size is " << s2.size() <<endl;
 delete s1;
+//delete s2;
 
 // delete s2;
 
