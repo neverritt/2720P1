@@ -115,37 +115,19 @@ void insert(int i, T data){
 		append(data);
 	}
 	else{
-		//Node<T> * newNode = Node<T>();
-		//Node<T> * sucessorPtr;
-		//Node<T> * predecessorPtr;
-		//newNode->data = data;
-		//sucessorPtr = head;
-		Node<T> * traverse = head;
-		
-		// for loop gets a ptr to the successor of newNode post-insertion
+		Node<T> * traverse = head;	
+		// for loop traverses through array
 		for( int j = 1; j < i; j++ ) {
 			traverse = traverse->next;
-			//if( j == i-1 ) {
-			//	predecessorPtr = sucessorPtr;
-			//}
-			//sucessorPtr = sucessorPtr->next;
 		}
+		// base case i = 0
 		Node<T> * temp = traverse->next;
+		// setting Node
 		traverse->next = new Node<T>;
 		(traverse->next)->next = temp;
 		(traverse->next)->data = data;
-		//newNode.next = sucessorPtr;		// sets newNode.next to it's successor
-		//newNode.prev = predecessorPtr;		// successor of newNode's prev is still set to what will be
 		
-		// gets the nodes before and after newNode to point to it instead of each other
-		//predecessorPtr->next = &newNode;
-		//sucessorPtr->prev = &newNode;
 		length++;
-
-		//if( i == 0 )
-		//	head = &newNode;
-		//else if ( i == length - 1 )
-		//	tail = &newNode;
 	}
 }
 

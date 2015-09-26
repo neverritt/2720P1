@@ -23,25 +23,14 @@ ArrayStack(void) = default;
 
 // Copy Constructor
 ArrayStack(const ArrayStack<T> & other) {
-	//top = other.top;
-	cout << "Copy called" << endl;
-	//delete [] array;
+	// same initial values, since push changes them
 	count = 0;
 	maxSize = 10;
 	top = -1;
-	// copying the array
-	//T * temp = new T[maxSize];
+	// copying the array from other, using push
 	for(int i = 0;i < other.count; i++){
 		this->push(other.array[i]);
-		cout << "Pushing" << endl;
-		//temp[i] = other.array[i];
 	}
-	cout << "Done Pushing" << endl;
-	//delete [] array; //emptying array just in case
-	//cout << "Delete worked" << endl;
-	//array = temp;
-	//cout << "set array to temp" << endl;
-	//delete [] temp;
 } // ArrayStack
   
 // Destructor
@@ -58,8 +47,6 @@ void push(T data){
 	count++;
 	// allocate memory for a new array
 	if (count > maxSize){
-		//count = count + 1;
-		// new array increases size by 1
 		maxSize = maxSize + (count-maxSize);
 		T * temp = new T[maxSize];
 		// copy elements
@@ -78,10 +65,8 @@ T pop(void){
 	T popped;
 	if (count!=0){
 		popped = array[top];
-		//array[top] = nullptr;
 		count--;
 		top--;
-		//return popped;
 	}
 	return popped;
 }
