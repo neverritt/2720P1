@@ -1,5 +1,7 @@
 #include <iostream>
+#include <iomanip>
 #include <stdlib.h>
+#include <time.h>
 #include "ArrayStack.h"
 #include "LinkedStack.h"
 #include "LinkedList.h"
@@ -9,6 +11,7 @@ using std::string;
 
 int main(int argc, const char * argv[]) {
 
+/**
 // ArrayStack Testing
 cout << "Testing Array Stack Implementations..." << endl;
 ArrayStack<int> * s1 = new ArrayStack<int> {};
@@ -44,8 +47,9 @@ cout << "Popped should be 9" << s2.pop() << endl;
 delete s1;
 
 cout << endl << endl;
+**/
 
-
+/**
 // LinkedStack Testing
 cout << "Testing LinkedStack . . . " << endl;
 LinkedStack<int> * ls = new LinkedStack<int>();
@@ -66,8 +70,10 @@ delete ls;
 cout << "Pop is 2" << ls2.pop() << endl;
 
 cout << endl << endl;
+**/
 
 
+/**
 // testing linked list implementation
 
 LinkedList<int> * list = new LinkedList<int>();
@@ -82,9 +88,6 @@ list->insert( 1, 2 );
 list->prepend( 0 );
 
 cout << "size: " << list->size() << " should be 5." << endl;
-/*for( int k = 0; k < list->size(); k++ ){
-	cout << list->get( k ) << " ";
-}*/
 
 cout << list->get(0) << " " << list->get(1) << " " << list->get(2) << " " << list->get(3) << " " << list->get(4);
 cout << endl;
@@ -95,6 +98,41 @@ list->set( 2, 14 );
 cout << "changed index to 14: " << list->get( 2 ) << endl;
 list->clear();
 cout << "Is list empty after clear? " << list->empty() << endl;
+**/
+
+
+cout << "Time testing Stacks . . . " << endl;
+
+clock_t begin, end;
+float time_spent;
+LinkedStack<int> * stack = new LinkedStack<int> ();
+
+for( int i = 0; i < 10; i++ ) {
+	begin = clock();
+
+	for( int j = 0; j < 1000000; j++ ) {
+		stack->push( 0 );
+	}
+
+	end = clock();
+
+	time_spent = (float) (end - begin) / CLOCKS_PER_SEC * 1000;
+	cout << setprecision(3) << fixed << "Push took: " << time_spent << " seconds" << endl;
+
+	begin = clock();
+
+	for( int j = 0; j < 1000000; j++ ) {
+		stack->pop();
+	}
+
+	end = clock();
+
+	time_spent = (float) (end - begin) / CLOCKS_PER_SEC * 1000;
+	cout << setprecision(3) << fixed << "Pop took: " << time_spent << " seconds" << endl;
+
+	cout << endl;
+}
+
 
 return EXIT_SUCCESS;
 } // main

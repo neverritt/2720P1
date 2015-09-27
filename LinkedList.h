@@ -43,12 +43,13 @@ void append(T data){
 	// if first node, tail = head
 	if (tail == nullptr){
 		head = newNode;
-		tail = head;
+		tail = newNode;
 	}
 	// if not first node, update tail
 	else {
+		newNode->prev = tail;
 		tail->next = newNode;
-		tail = tail->next;			
+		tail = newNode;
 	}
 	length++;
 }
@@ -63,12 +64,13 @@ void prepend(T data){
 	Node<T> * newNode = new Node<T>();
 	newNode->data = data;
 	newNode->next = head; // nodes next is set to head
-	head = newNode;
+	head->prev = &newNode;
+	head = &newNode;
 	length++;
 
 	// If first Node, tail = head
 	if(tail == nullptr)
-		tail = head;
+		tail = &newNode;
 }
 
 
@@ -166,14 +168,9 @@ void remove( int i ) {
 	else {
 		// node will point at target to remove
 		Node<T> * traverse;
-
-		// gets traverse to point at the node to remove
-		//for( int j = 0; j < i; j++ ) {
-		//	traverse = traverse->next;
-		//}
 		
 		// will set prev and next nodes to point at each other
-		if( length == 1 ) {
+		if( length == 1 ){
 			traverse = head;
 		}
 		else if( i == 0 ){
