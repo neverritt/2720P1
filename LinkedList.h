@@ -55,7 +55,7 @@ void append(T data){
 
 
 /**
-* Adds an item to the end of this list.
+* Adds an item to the beginning of this list.
 *
 * @param data the item to prepend
 */
@@ -168,24 +168,28 @@ void remove( int i ) {
 		Node<T> * traverse = head;
 
 		// gets traverse to point at the node to remove
-		for( int j = 0; j < i; j++ ) {
-			traverse = traverse->next;
-		}
+		//for( int j = 0; j < i; j++ ) {
+		//	traverse = traverse->next;
+		//}
 		
 		// will set prev and next nodes to point at each other
 		if( i == 0 ){
 			head = traverse->next;
-			(traverse->next)->prev = nullptr;	
+			(traverse->next)->prev = nullptr;
 		}
+
 		else if ( i == length - 1 ) {
+			traverse = tail;
 			tail = traverse->prev;
-			(traverse->prev)->next = nullptr;
 		}
+
 		else {
+			for (int j = 0; j < i; j++){
+				traverse = traverse->next;
+			}
 			(traverse->prev)->next = traverse->next;
 			(traverse->next)->prev = traverse->prev;
 		}
-
 		// removes target node
 		delete traverse;
 		length--;

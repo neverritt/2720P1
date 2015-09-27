@@ -3,12 +3,11 @@
 #include "ArrayStack.h"
 #include "LinkedStack.h"
 #include "LinkedList.h"
-//using std::cout;
-//using std::endl;
-//using std::string;
-using namespace std;
-int main(int argc, const char * argv[]) {
+using std::cout;
+using std::endl;
+using std::string;
 
+int main(int argc, const char * argv[]) {
 
 // ArrayStack Testing
 cout << "Testing Array Stack Implementations..." << endl;
@@ -61,7 +60,7 @@ cout << endl << endl;
 
 // testing linked list implementation
 
-LinkedList<int> * list = new LinkedList<int> ();
+LinkedList<int> * list = new LinkedList<int>();
 cout << "initial size is: " << list->size() << endl;
 
 list->prepend( 1 );

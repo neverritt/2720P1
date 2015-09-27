@@ -14,7 +14,8 @@ class LinkedStack : public Stack<T> {
 
 public:
 //instance/state variables
-LinkedList<T> stack = new LinkedList<T> ();
+LinkedList<T> * stack = new LinkedList<T> ();
+int top = -1;
 
 // Default Constructor
 LinkedStack(void) = default;
@@ -22,10 +23,11 @@ LinkedStack(void) = default;
 // Copy Constructor
 LinkedStack(const LinkedStack<T> & other) {
 	// sets up initial list
-	LinkedList<T> stack = new LinkedList<T>();
+	top = -1;
+	//LinkedList<T> stack = new LinkedList<T>();
 	
-	for( int i = 0; i < other.size(); i++ ) {
-		T otherData = other.get( i );
+	for( int i = 0; i < other->size(); i++ ) {
+		T otherData = other->get( i );
 		this->push( otherData );
 	}
 } // LinkedStack
@@ -33,7 +35,9 @@ LinkedStack(const LinkedStack<T> & other) {
 
 // Destructor
 ~LinkedStack(void) {
-	stack.clear();
+	top = -1;
+	delete stack;
+	//stack->clear();
 } // ˜LinkedStack
 
 // TODO implement other functions
@@ -45,7 +49,8 @@ LinkedStack(const LinkedStack<T> & other) {
  * @param data the item to pushed onto stack
  */
 void push( T data ) {
-	stack.prepend( data );
+	top++;
+	stack->append( data );
 }
 
 
@@ -53,15 +58,17 @@ void push( T data ) {
  * Removes item at top of the stack & returns the item
  */
 T pop( void ) {
-	if( stack.size() < 1 ) {
+	T data;
+	if( stack->size() < 1 ) {
 		cout << "Stack is empty" << endl;
 		exit( EXIT_FAILURE );
 	}
 	else {
-		T data = stack.get( 0 );
-		stack.remove( 0 );
-		return data;
+		data = stack->get( top );
+		stack->remove( top );
 	}
+	top--;
+	return data;
 }
 
 
@@ -69,12 +76,16 @@ T pop( void ) {
  * Returns Item at top of stack w/out removing from stack
  */
 T peek( void ) const {
-	return stack.get( 0 );
+	if( stack->size() < 1) {
+		cout << "Attempted to peek at empty Array Stack." << endl;
+		exit( EXIT_FAILURE);
+	}
+	return stack->get( top );
 }
 
 
 T get( int i ) {
-	return stack.get( i );
+	return stack->get( i );
 }
 
 
@@ -82,7 +93,7 @@ T get( int i ) {
  * Returns num elements in list
  */
 const int size( void ) const {
-	return stack.size();
+	return stack->size();
 }
 
 
