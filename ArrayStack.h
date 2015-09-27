@@ -62,6 +62,10 @@ void push(T data){
 
 // Removes the item at the top of this stack and returns that item
 T pop(void){
+	if(count == 0){
+		cout << "Attempted to pop empty ArrayStack. Exiting." << endl;
+		exit(EXIT_FAILURE);
+	}
 	T popped;
 	if (count!=0){
 		popped = array[top];
@@ -73,6 +77,10 @@ T pop(void){
 
 // Returns the item at the top of this stack
 T peek(void) const {
+	if(count == 0){
+		cout << "Attempted to peek at empty ArrayStack. Exiting." << endl;
+		exit(EXIT_FAILURE);
+	}
 	return array[top];	
 }
 

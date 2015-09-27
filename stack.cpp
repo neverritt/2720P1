@@ -11,7 +11,7 @@ int main(int argc, const char * argv[]) {
 
 // ArrayStack Testing
 cout << "Testing Array Stack Implementations..." << endl;
-Stack<int> * s1 = new ArrayStack<int> {};
+ArrayStack<int> * s1 = new ArrayStack<int> {};
 // test!
 s1->push(1);
 s1->push(2);
@@ -25,11 +25,22 @@ s1->push(9);
 s1->push(10);
 s1->push(11);
 s1->push(12);
-cout << "Popped " << s1->pop() << endl;
+cout << "Popped should be 12 " << s1->pop() << endl;
 
-cout << "Peeking " << s1->peek() << endl;
+cout << "Popped should be 11" << s1->pop() << endl;
 
-cout << "size is " << s1->size() << endl;
+cout << "Peeking should be 10" << s1->peek() << endl;
+
+cout << "size is 10" << s1->size() << endl;
+
+ArrayStack<int> s2 = *s1;
+
+cout << "Popped should be 10" << s2.pop() << endl;
+cout << "First size still 10" << s1->size() << endl;
+cout << "s2 size now 9" << s2.size() << endl;
+cout << "Popped should be 10" << s1->pop() << endl;
+cout << "Popped should be 9" << s2.pop() << endl;
+
 delete s1;
 
 cout << endl << endl;
@@ -37,23 +48,22 @@ cout << endl << endl;
 
 // LinkedStack Testing
 cout << "Testing LinkedStack . . . " << endl;
-Stack<int> * ls = new LinkedStack<int>();
+LinkedStack<int> * ls = new LinkedStack<int>();
 ls->push(5);
 ls->push(4);
 ls->push(3);
 ls->push(2);
 ls->push(1);
-cout << "Peek: " << ls->peek() << endl;
-cout << "Popping: " << ls->pop() << endl;
-cout << "Peek: " << ls->peek() << endl;
-cout << "Size: " << ls->size() << endl;
-cout << "Is empty? " << ls->empty() << endl;
+cout << "Peek: 1" << ls->peek() << endl;
+cout << "Popping: 1" << ls->pop() << endl;
+cout << "Peek: 2" << ls->peek() << endl;
+cout << "Size: 4" << ls->size() << endl;
+cout << "Is empty? 0" << ls->empty() << endl;
 cout << "Test copy constructor: " << endl;
-//Stack<int> * ls2 = new LinkedStack<int>();
-//ls2 = ls;
-//cout << "Top of new stack: " << ls2->peek() << endl;
+LinkedStack<int> ls2 = *ls;
+cout << "Top of new stack: 2" << ls2.peek() << endl;
 delete ls;
-//cout << ls2->pop() << endl;
+cout << "Pop is 2" << ls2.pop() << endl;
 
 cout << endl << endl;
 

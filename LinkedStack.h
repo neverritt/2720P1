@@ -26,8 +26,8 @@ LinkedStack(const LinkedStack<T> & other) {
 	top = -1;
 	//LinkedList<T> stack = new LinkedList<T>();
 	
-	for( int i = 0; i < other->size(); i++ ) {
-		T otherData = other->get( i );
+	for( int i = 0; i < other.stack->size(); i++ ) {
+		T otherData = other.stack->get( i );
 		this->push( otherData );
 	}
 } // LinkedStack
@@ -60,7 +60,7 @@ void push( T data ) {
 T pop( void ) {
 	T data;
 	if( stack->size() < 1 ) {
-		cout << "Stack is empty" << endl;
+		cout << "Attempted to pop empty stack. Exiting" << endl;
 		exit( EXIT_FAILURE );
 	}
 	else {
@@ -77,7 +77,7 @@ T pop( void ) {
  */
 T peek( void ) const {
 	if( stack->size() < 1) {
-		cout << "Attempted to peek at empty Array Stack." << endl;
+		cout << "Attempted to peek at empty Array Stack. Exiting" << endl;
 		exit( EXIT_FAILURE);
 	}
 	return stack->get( top );
@@ -85,6 +85,10 @@ T peek( void ) const {
 
 
 T get( int i ) {
+	if(stack->size() < 1){
+		cout << "Attempted to get from empty Array Stack. Exiting" << endl;
+		exit(EXIT_FAILURE);
+	}
 	return stack->get( i );
 }
 

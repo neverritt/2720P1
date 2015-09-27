@@ -59,8 +59,8 @@ void enqueue(T data){
 // removes the item at the front of this queue and returns it
 T dequeue(void){
 	T data;
-	if(empty()){
-		cout << "Attempted to dequeue empty list. Exiting." << endl;
+	if(count == 0){
+		cout << "Attempted to dequeue empty array. Exiting." << endl;
 		exit(EXIT_FAILURE);
 	}
 	else{
@@ -80,7 +80,7 @@ T dequeue(void){
 T peek(void) const {
 	T data;
 	if(count == 0){
-		cout << "Attempted to peek at empty list." << endl;
+		cout << "Attempted to peek at empty array. Exiting." << endl;
 		exit(EXIT_FAILURE);
 	} else {
 	data = array[0];

@@ -208,9 +208,10 @@ void clear(void) {
 		delete temp->prev;
 		temp = temp->next;
 	}
-
-	delete temp;	// deletes final node
-
+	
+	if(length!=0){
+		delete temp;	// deletes final node
+	}
 	// set head and tail to null
 	head = nullptr;
 	tail = nullptr;

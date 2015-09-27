@@ -27,9 +27,9 @@ LinkedQueue(void) = default;
 LinkedQueue(const LinkedQueue<T> & other) {
 	//LinkedList<T> stack = new LinkedList<T> ();
 
-	for( int i = 0; i < other->size(); i++ ) {
-		T otherData = other->get( i );
-		this->push( otherData );
+	for( int i = 0; i < other.stack->size(); i++ ) {
+		T otherData = other.stack->get( i );
+		this->enqueue( otherData );
 	}
 } // LinkedQueue
 
@@ -74,6 +74,10 @@ T dequeue( void ) {
  * from the queue
  */
 T peek( void ) const {
+	if(stack->size() < 1){
+		cout << "Attempted to peek at empty queue. Exiting." << endl;
+		exit( EXIT_FAILURE);
+	}
 	return stack->get( 0 );
 }
 
