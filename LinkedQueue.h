@@ -16,7 +16,7 @@ class LinkedQueue : public Queue<T> {
 public:
 
 // instance/state variables
-LinkedList<T> stack = new LinkedList<T> ();
+LinkedList<T> * stack = new LinkedList<T> ();
 
 
 // Default Constructor
@@ -25,18 +25,18 @@ LinkedQueue(void) = default;
 
 // Copy Constructor
 LinkedQueue(const LinkedQueue<T> & other) {
-	LinkedList<T> stack = new LinkedList<T> ();
+	//LinkedList<T> stack = new LinkedList<T> ();
 
-	for( int i = 0; i < other.size(); i++ ) {
-		T otherData = other.get( i );
+	for( int i = 0; i < other->size(); i++ ) {
+		T otherData = other->get( i );
 		this->push( otherData );
 	}
 } // LinkedQueue
 
 
 // Destructor
-virtual ~LinkedQueue(void) {
-	stack.clear();
+~LinkedQueue(void) {
+	delete stack;
 } // ~LinkedQueue
 
 
@@ -49,21 +49,21 @@ virtual ~LinkedQueue(void) {
  * @param data the item to be enqueued
  */
 void enqueue( T data ) {
-	stack.append( data );
+	stack->append( data );
 }
 
 
 /**
  * Removes the item at the front of this queue and returns that item
  */
-T dequeue( void ) const {
-	if( stack.size() < 1 ) {
+T dequeue( void ) {
+	if( stack->size() < 1 ) {
 		cout << "No more items to dequeue" << endl;
 		exit ( EXIT_FAILURE);
 	}
 	else {
-		T data = stack.get( 0 );
-		stack.remove( 0 );
+		T data = stack->get( 0 );
+		stack->remove( 0 );
 		return data;
 	}
 }
@@ -74,7 +74,7 @@ T dequeue( void ) const {
  * from the queue
  */
 T peek( void ) const {
-	return stack.get( 0 );
+	return stack->get( 0 );
 }
 
 
@@ -82,7 +82,7 @@ T peek( void ) const {
  * Returns the number of elements in this queue
  */
 const int size( void ) const {
-	return stack.size();
+	return stack->size();
 }
 
 

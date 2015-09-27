@@ -31,7 +31,7 @@ ArrayQueue(const ArrayQueue<T> & other) {
 } // ArrayQueue
 
 // Destructor
-virtual ~ArrayQueue(void) {
+~ArrayQueue(void) {
 	maxSize = 10;
 	tail = -1;
 	delete [] array;
