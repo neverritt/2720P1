@@ -1,5 +1,6 @@
 #include <iostream>
 #include <cstdlib>
+#include <time.h>
 #include "ArrayQueue.h"
 #include "LinkedQueue.h"
 using std::cout;
@@ -15,6 +16,7 @@ cout << "Testing Queue Implementations..." << endl;
 
 
 // LinkedQueue Testing
+/**
 cout << "Testing LinkedQueue . . . " << endl;
 LinkedQueue<int> * q1 = new LinkedQueue<int> ();
 q1->enqueue(5);
@@ -38,6 +40,8 @@ cout << "Peek: 3 " << q2.peek() << endl;
 cout << "Peek still 4" << q1->peek() << endl;
 
 delete q1;
+
+**/
 
 cout << "Testing LinkedArray . . . " << endl;
 ArrayQueue<int> * aq = new ArrayQueue<int> {};
@@ -68,6 +72,46 @@ cout << "Peek: 9 " << a2.peek() << endl;
 cout << "Peek still 10" << aq->peek() << endl;
 
 delete aq;
+
+
+cout << endl << endl;
+
+cout << "Timing Array Queue . . . " << endl << endl;
+
+clock_t begin, end;
+float time_spent;
+ArrayQueue<int> * q1 = new ArrayQueue<int> {};
+
+//q1->enqueue(0);
+//q1->dequeue();
+
+
+for( int i = 0; i < 10; i++ ) {
+	begin = clock();
+
+	for( int j = 0; j < 10000; j++ ) {
+		q1->enqueue( 0 );
+	}
+
+	end = clock();
+	
+	time_spent = (float)(end - begin) / CLOCKS_PER_SEC;
+	cout << "Enqueue took: " << time_spent << " seconds" << endl;
+
+	begin = clock();
+
+	for ( int j = 0; j < 10000; j++ ) {
+		q1->dequeue();
+	}
+
+	end = clock();
+
+	time_spent = (float) (end - begin) / CLOCKS_PER_SEC;
+	cout << "Dequeue took: " << time_spent << " seconds" << endl;
+	cout << endl;
+}
+
+cout << endl;
 
 
 return EXIT_SUCCESS;

@@ -165,7 +165,7 @@ void remove( int i ) {
 	}
 	else {
 		// node will point at target to remove
-		Node<T> * traverse = head;
+		Node<T> * traverse;
 
 		// gets traverse to point at the node to remove
 		//for( int j = 0; j < i; j++ ) {
@@ -173,17 +173,23 @@ void remove( int i ) {
 		//}
 		
 		// will set prev and next nodes to point at each other
-		if( i == 0 ){
+		if( length == 1 ) {
+			traverse = head;
+		}
+		else if( i == 0 ){
+			traverse = head;
 			head = traverse->next;
-			(traverse->next)->prev = nullptr;
+			head->prev = nullptr;
 		}
 
 		else if ( i == length - 1 ) {
 			traverse = tail;
-			tail = traverse->prev;
+			tail = tail->prev;
+			tail->next = nullptr;
 		}
 
 		else {
+			traverse = head;
 			for (int j = 0; j < i; j++){
 				traverse = traverse->next;
 			}
