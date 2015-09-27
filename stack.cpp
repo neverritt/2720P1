@@ -37,7 +37,7 @@ cout << endl << endl;
 
 // LinkedStack Testing
 cout << "Testing LinkedStack . . . " << endl;
-Stack<int> * ls = &(new LinkedStack<int>());
+Stack<int> * ls = new LinkedStack<int>();
 ls->push(5);
 ls->push(4);
 ls->push(3);
