@@ -37,7 +37,7 @@ cout << endl << endl;
 
 // LinkedStack Testing
 cout << "Testing LinkedStack . . . " << endl;
-Stack<int> * s2 = new LinkedStack<int> {};
+Stack<int> * s2 = new LinkedStack<int>();
 s2->push(5);
 s2->push(4);
 s2->push(3);
@@ -49,41 +49,42 @@ cout << "Peek: " << s2->peek() << endl;
 cout << "Size: " << s2->size() << endl;
 cout << "Is empty? " << s2->empty() << endl;
 cout << "Test copy constructor: " << endl;
-Stack<int> * s3 = s2;
+Stack<int> * s3 = new LinkedStack<int>();
+s3 = s2;
 cout << "Top of new stack: " << s3->peek() << endl;
 delete s2;
-delete s3;
+cout << s3->pop() << endl;
 
 cout << endl << endl;
 
 
 // testing linked list implementation
 
-LinkedList<int> list = new LinkedList<int> ();
-cout << "initial size is: " << list.size() << endl;
+LinkedList<int> * list = new LinkedList<int> ();
+cout << "initial size is: " << list->size() << endl;
 
-list.prepend( 1 );
-cout << "Prepend 1 to list: " << endl << "size: " << list.size() << "  get first index: " << list.get(0) << endl;
+list->prepend( 1 );
+cout << "Prepend 1 to list: " << endl << "size: " << list->size() << "  get first index: " << list->get(0) << endl;
 
-list.append( 3 );
-list.append( 4 );
-list.insert( 1, 2 );
-list.prepend( 0 );
+list->append( 3 );
+list->append( 4 );
+list->insert( 1, 2 );
+list->prepend( 0 );
 
-cout << "size: " << list.size() << " should be 5." << endl;
-/*for( int k = 0; k < list.size(); k++ ){
-	cout << list.get( k ) << " ";
+cout << "size: " << list->size() << " should be 5." << endl;
+/*for( int k = 0; k < list->size(); k++ ){
+	cout << list->get( k ) << " ";
 }*/
 
-cout << list.get(0) << " " << list.get(1) << " " << list.get(2) << " " << list.get(3) << " " << list.get(4);
+cout << list->get(0) << " " << list->get(1) << " " << list->get(2) << " " << list->get(3) << " " << list->get(4);
 cout << endl;
 
-cout << "list empty? " << list.empty() << endl;
+cout << "list empty? " << list->empty() << endl;
 
-list.set( 2, 14 );
-cout << "changed index to 14: " << list.get( 2 ) << endl;
-list.clear();
-cout << "Is list empty after clear? " << list.empty() << endl;
+list->set( 2, 14 );
+cout << "changed index to 14: " << list->get( 2 ) << endl;
+list->clear();
+cout << "Is list empty after clear? " << list->empty() << endl;
 
 return EXIT_SUCCESS;
 } // main

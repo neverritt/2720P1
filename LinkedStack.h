@@ -14,7 +14,7 @@ class LinkedStack : public Stack<T> {
 
 public:
 //instance/state variables
-LinkedList<T> stack;
+LinkedList<T> stack = new LinkedList<T> ();
 	
 
 // Default Constructor
@@ -26,8 +26,9 @@ LinkedStack(const LinkedStack<T> & other) {
 	// sets up initial list
 	LinkedList<T> stack = new LinkedList<T>();
 	
-	for( int i = 0; i < other.length; i++ ) {
-		this->push( other.stack.get( i ) );
+	for( int i = 0; i < other.size(); i++ ) {
+		T otherData = other.get( i );
+		this->push( otherData );
 	}
 } // LinkedStack
 
@@ -71,6 +72,11 @@ T pop( void ) {
  */
 T peek( void ) const {
 	return stack.get( 0 );
+}
+
+
+T get( int i ) {
+	return stack.get( i );
 }
 
 

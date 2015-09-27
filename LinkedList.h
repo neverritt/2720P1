@@ -115,19 +115,18 @@ void insert(int i, T data){
 * @param i the index of the item to return
 */
 T get(int i) const {
-	Node<T> * temp;
-	temp = head;
 	if (i >= length || i < 0){
 		cout << "Index is outside of range." << endl;
 		exit (EXIT_FAILURE);
 	}
 	else{
+		Node<T> * nodePtr = head;
 
 		for( int j = 0; j < i; j++ ){
 		// moves through the list one by one to reach desired index
-			temp = temp->next;	
+			nodePtr = nodePtr->next;	
 		}
-		return temp->data;
+		return nodePtr->data;
 	}
 }
 
