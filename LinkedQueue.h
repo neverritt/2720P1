@@ -1,23 +1,90 @@
 #ifndef LINKED_QUEUE_H
 #define LINKED_QUEUE_H
 #include "Queue.h"
+#include "LinkedList.h"
+#include <stdlib.h>
+#include <iostream>
+using namespace std;
+
+
 /**
-* An queue implementation based on a doubly linked list.
+* A queue implementation based on a doubly linked list.
 */
 template<typename T>
 class LinkedQueue : public Queue<T> {
-// instance/state variables
+
 public:
+
+// instance/state variables
+LinkedList<T> stack = new LinkedList<T> ();
+
+
 // Default Constructor
 LinkedQueue(void) = default;
+
+
 // Copy Constructor
 LinkedQueue(const LinkedQueue<T> & other) {
-// TODO implement a copy constructor
+	LinkedList<T> stack = new LinkedList<T> ();
+
+	for( int i = 0; i < other.size(); i++ ) {
+		T otherData = other.get( i );
+		this->push( otherData );
+	}
 } // LinkedQueue
+
+
 // Destructor
 virtual ~LinkedQueue(void) {
-// TODO implement the destructor
+	stack.clear();
 } // ~LinkedQueue
+
+
 // TODO implement other functions
+
+
+/**
+ * Adds an item to the rear of the queue.
+ *
+ * @param data the item to be enqueued
+ */
+void enqueue( T data ) {
+	stack.append( data );
+}
+
+
+/**
+ * Removes the item at the front of this queue and returns that item
+ */
+T dequeue( void ) const {
+	if( stack.size() < 1 ) {
+		cout << "No more items to dequeue" << endl;
+		exit ( EXIT_FAILURE);
+	}
+	else {
+		T data = stack.get( 0 );
+		stack.remove( 0 );
+		return data;
+	}
+}
+
+
+/**
+ * Returns the item at the front of the queue without removing it
+ * from the queue
+ */
+T peek( void ) const {
+	return stack.get( 0 );
+}
+
+
+/**
+ * Returns the number of elements in this queue
+ */
+const int size( void ) const {
+	return stack.size();
+}
+
+
 }; // LinkedQueue
 #endif /* LINKED_QUEUE_H */

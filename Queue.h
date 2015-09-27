@@ -13,7 +13,7 @@ public:
 /**
 * Destructor
 */
-virtual ~Queue(void) = 0;
+virtual ~Queue(void) { }
 /**
 * Adds an item to the rear of this queue.
 *

@@ -37,23 +37,23 @@ cout << endl << endl;
 
 // LinkedStack Testing
 cout << "Testing LinkedStack . . . " << endl;
-Stack<int> * s2 = new LinkedStack<int>();
-s2->push(5);
-s2->push(4);
-s2->push(3);
-s2->push(2);
-s2->push(1);
-cout << "Peek: " << s2->peek() << endl;
-cout << "Popping: " << s2->pop() << endl;
-cout << "Peek: " << s2->peek() << endl;
-cout << "Size: " << s2->size() << endl;
-cout << "Is empty? " << s2->empty() << endl;
+Stack<int> * ls = &(new LinkedStack<int>());
+ls->push(5);
+ls->push(4);
+ls->push(3);
+ls->push(2);
+ls->push(1);
+cout << "Peek: " << ls->peek() << endl;
+cout << "Popping: " << ls->pop() << endl;
+cout << "Peek: " << ls->peek() << endl;
+cout << "Size: " << ls->size() << endl;
+cout << "Is empty? " << ls->empty() << endl;
 cout << "Test copy constructor: " << endl;
-Stack<int> * s3 = new LinkedStack<int>();
-s3 = s2;
-cout << "Top of new stack: " << s3->peek() << endl;
-delete s2;
-cout << s3->pop() << endl;
+//Stack<int> * ls2 = new LinkedStack<int>();
+//ls2 = ls;
+//cout << "Top of new stack: " << ls2->peek() << endl;
+delete ls;
+//cout << ls2->pop() << endl;
 
 cout << endl << endl;
 
