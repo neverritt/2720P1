@@ -122,11 +122,21 @@ T get(int i) const {
 		exit (EXIT_FAILURE);
 	}
 	else{
-		Node<T> * nodePtr = head;
-
-		for( int j = 0; j < i; j++ ){
-		// moves through the list one by one to reach desired index
-			nodePtr = nodePtr->next;	
+		Node<T> * nodePtr;
+		
+		if( length - 1 - i < length / 2 ) {
+			nodePtr = tail;
+			for( int j = length-1; j > i; j-- ){
+				// moves through the list one by one to reach desired index
+				nodePtr = nodePtr->prev;	
+			}
+		}
+		else {
+			nodePtr = head;
+			for( int j = 0; j < i; j++ ){
+			// moves through the list one by one to reach desired index
+				nodePtr = nodePtr->next;	
+			}
 		}
 		return nodePtr->data;
 	}
