@@ -41,7 +41,7 @@ void append(T data){
 	newNode->data = data;
 
 	// if first node, tail = head
-	if (tail == nullptr){
+	if( length == 0 ){
 		head = newNode;
 		tail = newNode;
 	}
@@ -63,14 +63,21 @@ void append(T data){
 void prepend(T data){
 	Node<T> * newNode = new Node<T>();
 	newNode->data = data;
-	newNode->next = head; // nodes next is set to head
-	head->prev = &newNode;
-	head = &newNode;
+
+	if( length == 0 ) {
+		tail = newNode;
+		head = newNode;
+	}
+	else {
+		newNode->next = head; // nodes next is set to head
+		head->prev = newNode;
+		head = newNode;
+	}
 	length++;
 
 	// If first Node, tail = head
-	if(tail == nullptr)
-		tail = &newNode;
+	//if(tail == nullptr)
+	//	tail = newNode;
 }
 
 
@@ -126,7 +133,7 @@ T get(int i) const {
 		
 		if( length - 1 - i < length / 2 ) {
 			nodePtr = tail;
-			for( int j = length-1; j > i; j-- ){
+			for( int j = length - 1; j > i; j-- ){
 				// moves through the list one by one to reach desired index
 				nodePtr = nodePtr->prev;	
 			}
