@@ -1,6 +1,10 @@
 #include <iostream>
 #include <stdlib.h>
 #include <cmath>
+#include <iomanip>
+#include <sstream>
+#include <string>
+#include <vector>
 using namespace std;
 
 class bst;
@@ -14,8 +18,7 @@ class Node {
 	Node * left = nullptr;
 	Node * right = nullptr;
 	Node * p = nullptr;
-}; // Node
-
+}; // Node 
 /**
  * Binary Tree Class
  */
@@ -91,12 +94,11 @@ void insert( int data ) {
  * Prints Pre-Order Traversal of BST Object
  */
 void preOrder (){
-	cout << "Pre-order traversal: ";
+	cout << "Pre-order traversal: " << endl;
 	Node * nodePtr = root;
 	preOrderPrint( nodePtr );
 	cout << endl;
-}
-
+} 
 /**
  * Prints subtree rooted at node in Pre-Order Traversal
  *
@@ -119,7 +121,7 @@ void preOrderPrint ( Node* node ) {
  * Prints In-Order Traversal of BST Object
  */
 void inOrder (){
-	cout << "In-order traversal: ";
+	cout << "In-order traversal: " << endl;
 	Node * nodePtr = root;
 	inOrderPrint( nodePtr );
 	cout << endl;
@@ -142,7 +144,7 @@ void inOrderPrint( Node* node ) {
  * Prints Post-Order Traversal of BST Object
  */
 void postOrder (){
-	cout << "Post-order traversal: ";
+	cout << "Post-order traversal: " << endl;
 	Node * nodePtr = root;
 	postOrderPrint( nodePtr );
 	cout << endl;
@@ -283,7 +285,7 @@ int subSize( Node* node ){
 /**
  * Prints Height of BST Object
  */
-void height() {
+void treeHeight() {
 	cout << "Height of the bst: ";
 	Node* nodePtr = root;
 	cout << getHeight( nodePtr );
@@ -328,21 +330,59 @@ int getHeight( Node* node ) {
 void visualTree(){
 	Node * nodePtr = root;
 	int height = getHeight( nodePtr );
-	// widest level = 2^height nodes, overall width is double so theres room for whitespace
-	int width = pow( 2.0, height ) * 2;
-	int numNodesInLevel = 1; // set for the root level of the tree
-	
-	// NOTE: num levels in tree = height + 1
-	for( int i = 0; i < height + 1; i++ ) { // will iterate through all levels in tree
-	 
-		for( int j = 0; j < numNodesInLevel; j++ ) { // will loop through all nodes in level
-			cout << setw( width ) << nodePtr->key;
-		}// Nodes in level for loop
-	
-		cout << endl;
+	// widest level = 2^height nodes (maximum)
+	// width is space before number is inserted
+	int width = pow(2.0, height);
 
-	}// levels of tree loop
+	// holds each level of tree as string with [0] being root level
+	vector<string> treeArray ( height + 1, " " );
+
+	// calls the recursive method to fill out string array representation of bst
+	treeArray = populateTreeArray( nodePtr, treeArray, width, 0 );
+
+	// prints out each level of the string array, making the tree level by level
+	for( int i = 0; i < treeArray.size(); i++ ) {
+		cout << treeArray[i] << endl;
+	}
 	
+}
+
+/**
+ * recursively adds nodes in tree to treeArray with proper spacing
+ *
+ * @param nodePtr - node to iterate from
+ * @param tree - vector of strings that represents the bst where each string is a certain level of the bst
+ * @param spacing - how much space should be between the numbers on that level of the tree
+ * @param treeLevel - tracks what level of the bst that the current node is on
+ */
+vector<string> populateTreeArray( Node* nodePtr, vector<string> tree, int spacing, int treeLevel ) {
+
+	if( nodePtr == nullptr ) {
+		if( treeLevel < tree.size() ) { // if below leaf but still not below lowest node
+			string padding(spacing, ' ');
+			// adding padding twice for space before and after missing node
+			tree[treeLevel] += padding;
+			tree[treeLevel] += padding;
+		}
+		return tree;
+	}
+
+	// padding is a string containing spaces of some length
+	string padding(spacing, ' ');
+	// adds spacing before, number, then spacing after to a temporary string
+	string newString = padding;
+	newString += to_string(nodePtr->key);
+	newString += padding;
+	// adds temp string to existing string on that level of the tree
+	tree[treeLevel] += newString; 
+
+	spacing = spacing/2; // adjusts sapcing for next level of tree
+	treeLevel++;	
+
+	tree = populateTreeArray( nodePtr->left, tree, spacing, treeLevel );
+	tree = populateTreeArray( nodePtr->right, tree, spacing, treeLevel );
+
+	return tree;
 }
 
 /**

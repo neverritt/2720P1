@@ -40,11 +40,12 @@ int main(int argc, const char * argv[]) {
 	}
 	
 	cout << "Number of nodes in the bst: " << tree->size() << endl;
-	tree->height();
+	tree->treeHeight();
 	tree->preOrder();
 	tree->inOrder();
 	tree->postOrder();
-	//cout << "Extra credit tree visualization: " << tree->visual() << endl;
+	cout << "Extra credit tree visualization: " << endl;
+	tree->visualTree();
 
 	return 0;
 }
