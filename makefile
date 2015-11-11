@@ -1,20 +1,20 @@
 CC = g++
 DEBUG = -g
-CFLAGS = -Wall -std=c++11 -c $(DEBUG)
-LFLAGS = -Wall $(DEBUG)
+CFLAGS = -std=c++11 -c $(DEBUG)
+LFLAGS = $(DEBUG)
 
-all: bst
+compile: sort
 
-bst: bst.o
-	$(CC) $(LFLAGS) -o bst bst.o
+bst: sort.o
+	$(CC) $(LFLAGS) -o sort sort.o
 
 bst.o: bst.h
-	$(CC) $(CFLAGS) -c bst.cpp 
+	$(CC) $(CFLAGS) -c sort.cpp 
 
 run: bst
-	./bst
+	./sort
 
 clean:
 	rm -rf *.o
-	rm -rf bst
+	rm -rf sort
 	rm -rf *.dSYM
