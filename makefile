@@ -5,13 +5,13 @@ LFLAGS = $(DEBUG)
 
 compile: sort
 
-bst: sort.o
+sort: sort.o
 	$(CC) $(LFLAGS) -o sort sort.o
 
-bst.o: bst.h
+sort.o: sort.h
 	$(CC) $(CFLAGS) -c sort.cpp 
 
-run: bst
+run: sort
 	./sort
 
 clean:
