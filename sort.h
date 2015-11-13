@@ -16,33 +16,48 @@ class sort{
 public:
 
 /**
- * Insertion Sort. Prints size of input and # of comparisons.
+ * Insertion Sort. Returns # of comparisons.
  *
  * @param array: array of data
+ * @param length: length of array
  */
-void iSort(int array[]){
-	int length = sizeof(array)/sizeof(int);
-	for(int i = 2; i<length; i++){
-
+int iSort(int array[], int length){
+	int compare = 0;
+	for(int i = 1; i < length; i++){
+		int key = array[i];
+		// Insert array[i] into sorted sequence array[1..i-1]
+		int j = i - 1; // tracks i - 1
+		while((j >= 0) && (array[j] > key)){
+			array[j+1] = array[j];
+			j = j - 1;
+		}
+		array[j+1] = key;
 	}
+	return compare;
 }
 
 /**
- * Merge Sort. Prints the size of the input and # of comparisons.
+ * Merge Sort. Returns # of comparisons.
  *
  * @param array: array of data
+ * @param length: length of array
  */
-void mSort(int array[]){
-
+int mSort(int array[], int length){
+	int compare = 0;
+	
+	return compare;
 }
 
 /**
- * Quick Sort. Prints the size of the input and # of comparisons.
+ * Quick Sort. Returns # of comparisons.
  *
  * @param array: array of data
+ * @param length: length of array
  */
-void qSort(int array[]){
+int qSort(int array[], int length){
+	int compare = 0;
 
+	return compare;
 }
 
 };

@@ -21,19 +21,30 @@ int main(int argc, const char * argv[]){
 
 	// initialize array of size argc - 2 (program and flag)
 	int array[argc-2];
-	for(int i = 2; i < (argc); i++){
-		array[i] = atoi(argv[i]); // atoi converts argv[i] to int
+	for(int i = 0; i < (argc-2); i++){
+		array[i] = atoi(argv[i+2]); // atoi converts argv[i] to int
 	}	
-	
+	int length = (sizeof(array)/sizeof(*array));
 	sort *sorter = new sort();
-	// flag can be -i, -m, or -q
+	int comparisons;	
+	// sort -i, -m, or -q
 	if(strcmp(argv[1],"-i") == 0){ // i-sort
-		sorter->iSort(array);
+		comparisons = sorter->iSort(array, length);
+		cout << "Insertion sort: ";
 	} else if (strcmp(argv[1],"-m") == 0){ // m-sort
-		sorter->mSort(array);		
+		comparisons = sorter->mSort(array, length);	
+		cout << "Merge sort: ";
 	} else if (strcmp(argv[1],"-q") == 0){ // q-sort
-		sorter->qSort(array);
+		comparisons = sorter->qSort(array, length);
+		cout << "Quick sort: ";
 	}
 
+	// print new array, it's length, # comparisons
+	for (int i = 0; i < length; i++){
+		cout << array[i] << " ";		
+	}	
+	cout << endl;
+	cout << "Input size: " << length << endl; // print length
+	cout << "Total # comparisons: " << comparisons << endl;
 	return 0;
 }
