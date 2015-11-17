@@ -26,13 +26,14 @@ int main(int argc, const char * argv[]){
 	}	
 	int length = (sizeof(array)/sizeof(*array));
 	sort *sorter = new sort();
-	int comparisons;	
+	long comparisons;	
+	
 	// sort -i, -m, or -q
 	if(strcmp(argv[1],"-i") == 0){ // i-sort
 		comparisons = sorter->iSort(array, length);
 		cout << "Insertion sort: ";
 	} else if (strcmp(argv[1],"-m") == 0){ // m-sort
-		comparisons = sorter->mSort(array, length);	
+		comparisons = sorter->mSort(array, 0, length-1);	
 		cout << "Merge sort: ";
 	} else if (strcmp(argv[1],"-q") == 0){ // q-sort
 		comparisons = sorter->qSort(array, length);
