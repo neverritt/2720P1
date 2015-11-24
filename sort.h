@@ -49,38 +49,51 @@ long iSort(int array[], int length){
  * @param last: last index of subarray
  */
 long mSort(int array[], int first, int last){
-	long compare = 0;
+	long comparisons = 0;
 	if(first < last){
-		int middle = floor((first+last)/2);
-		compare += mSort(array, first, middle);
-		compare += mSort(array, middle+1, last);
-		merge(array, first, middle, last);
+		int middle = floor( ( first + last ) / 2 );
+		comparisons += mSort( array, first, middle );
+		comparisons += mSort( array, middle+1, last );
+		comparisons += merge( array, first, middle, last );
 	}	
 	
-	return compare;
+	return comparisons;
 }
 
-void merge(int array[], int first, int middle, int last){
-	int leftMax = middle - first + 1;
-	int rightMax = last - middle;
-	int * left = new int[leftMax];
-	int * right = new int[rightMax];
-	for(int i = 0; i < leftMax; i++){
-		left[i] = array[i+first];
+long merge( int array[], int first, int middle, int last ){
+	long comparisons = 0;			//tracks comparisons while merging
+	int leftSize = middle - first + 1;	//num elements in left list
+	int rightSize = last - middle;		//num elements in right list
+	int * left;
+	left  = new int[ leftSize ];		//allocates array for left list
+	int * right;
+	right = new int[ rightSize ];		//allocates array for right list
+
+	// copies left elements of array to temp array
+	for( int i = 0; i < leftSize; i++ ){
+		left[ i ] = array[ first + i ];
 	}
-	for(int i = 0; i < rightMax; i++){
-		right[i] = array[i+middle];
+
+	// copies right elements of array to temp array
+	for(int i = 0; i < rightSize; i++){
+		right[ i ] = array[ middle + i ];
 	}
-	int j, k = 0;
-	for(int i = first; i < last; i++){
+
+	int j, k = 0;	// j and k track positions in right and left lists
+
+	// loops from first to last in main array merging lists as it goes
+	for( int i = first; i < last; i++ ){
 		if(left[j] <= right[k]){
 			array[i] = left[j];
 			j = j + 1;
-		} else {
+		} 
+		else {
 			array[i] = right[k];
 			k = k + 1;
 		}
+		comparisons += 1;
 	} 
+	return comparisons;
 }
 
 /**
