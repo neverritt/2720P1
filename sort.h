@@ -64,10 +64,18 @@ long merge( int array[], int first, int middle, int last ){
 	long comparisons = 0;			//tracks comparisons while merging
 	int leftSize = middle - first + 1;	//num elements in left list
 	int rightSize = last - middle;		//num elements in right list
+
 	int * left;
-	left  = new int[ leftSize ];		//allocates array for left list
+	left  = new (nothrow) int[ leftSize ];		//allocates array for left list
+
 	int * right;
-	right = new int[ rightSize ];		//allocates array for right list
+	right = new (nothrow) int[ rightSize ];		//allocates array for right list
+
+	// makes sure space was allocated for arrays
+	if( right == nullptr || left == nullptr ) {
+		cout << "Error: could not allocate memory for dynamic arrays";
+		return 0;
+	}
 
 	// copies left elements of array to temp array
 	for( int i = 0; i < leftSize; i++ ){
@@ -76,23 +84,40 @@ long merge( int array[], int first, int middle, int last ){
 
 	// copies right elements of array to temp array
 	for(int i = 0; i < rightSize; i++){
-		right[ i ] = array[ middle + i ];
+		right[ i ] = array[ middle + i + 1 ];
 	}
 
-	int j, k = 0;	// j and k track positions in right and left lists
-
-	// loops from first to last in main array merging lists as it goes
-	for( int i = first; i < last; i++ ){
-		if(left[j] <= right[k]){
-			array[i] = left[j];
-			j = j + 1;
-		} 
-		else {
-			array[i] = right[k];
-			k = k + 1;
+	int i = 0;  // tracks position in left list
+	int j = 0;  // tracks position in right list
+	int k = first;  // tracks position in main array
+	while( i < leftSize && j < rightSize ){
+		if( left[ i ] < right[ j ] ){
+			array[ k ] = left[ i ];
+			i = i + 1;
 		}
-		comparisons += 1;
-	} 
+		else{
+			array[ k ] = right[ j ];
+			j = j + 1;
+		}
+		k += 1;
+		comparisons = comparisons + 1;
+	}
+
+	// if right completes before left this will add rest of left list to array
+	while( i < leftSize ) {
+		array[ k ] = left[ i ];
+		i = i + 1;
+		k = k + 1;
+	}
+
+	// if left completes before right, this will add rest of right list to array
+	while( j < rightSize ) {
+		array[ k ] = right[ j ];
+		k = k + 1;
+		j = j + 1;
+	}
+	delete[] left;
+	delete[] right;
 	return comparisons;
 }
 
