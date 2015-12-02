@@ -14,6 +14,11 @@ using namespace std;
 class sort;
 
 class sort{
+
+private:
+
+long comparisons = 0;
+
 public:
 
 /**
@@ -125,12 +130,55 @@ long merge( int array[], int first, int middle, int last ){
  * Quick Sort. Returns # of comparisons.
  *
  * @param array: array of data
- * @param length: length of array
+ * @param first: first index of subarray
+ * @param last: last index of subarray
  */
-long qSort(int array[], int length){
-	long compare = 0;
-
+long qSort(int array[], int first, int last){
+	long compare = comparisons;
+	comparisons = 0;
+	if(first < last){
+		int pivot = partition(array, first, last);
+		compare += qSort(array, first, pivot - 1);
+		compare += qSort(array, pivot + 1, last);			
+	}
+	comparisons = 0;
 	return compare;
+}
+/**
+ * Partitions array for quick sort. Returns the pivot index
+ *
+ * @param array: array of data
+ * @param first: first index of subarray
+ * @param last: last index of subarray
+ */
+int partition(int array[], int first, int last){
+	int pivot = array[first];
+
+	do{
+		while((first < last) && (array[last] >= pivot)){
+			last--;
+			comparisons++;
+		}
+		if(first < last){
+			// swaps # smaller than pivot
+			array[first] = array[last];
+			// look for # larger than pivot
+			while((first < last) && (array[first] <= pivot)){
+				first++;
+				comparisons++;
+			}
+			// moving to position
+			if(first < last){
+				array[last] = array[first];
+			}	
+		}
+
+	} while(first < last);	
+
+	// move pivot
+	array[first] = pivot;	
+	
+	return first;
 }
 
 };
