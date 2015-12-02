@@ -36,10 +36,10 @@ long iSort(int array[], int length){
 		while((j >= 0) && (array[j] > key)){
 			array[j+1] = array[j];
 			j = j - 1;
-			compare++;
+			compare = compare + 1;
 		}
 		if((j>=0) && (array[j] <= key)){
-			compare++;
+			compare = compare + 1;
 		}
 		array[j+1] = key;
 	}
